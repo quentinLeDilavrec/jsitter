@@ -16,5 +16,7 @@ add_library(jsitter SHARED src/java_api.c tree-sitter/lib/src/lib.c)
 
 add_library(tsgo SHARED grammars/tree-sitter-go/src/parser.c)
 
+add_library(tsjava SHARED grammars/tree-sitter-java/src/parser.c)
+
 add_executable(jsitter-tests src/tests.c)
-target_link_libraries(jsitter-tests jsitter tsgo)
+target_link_libraries(jsitter-tests jsitter tsgo tsjava)
