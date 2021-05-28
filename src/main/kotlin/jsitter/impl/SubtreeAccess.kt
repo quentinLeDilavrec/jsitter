@@ -16,6 +16,7 @@ object SubtreeAccess {
         return subtree.and(1) == 1L
     }
 
+    // offsets of SubtreeHeapData
     val ref_count = 0
     val padding = 4
     val size = padding + 12
@@ -26,13 +27,18 @@ object SubtreeAccess {
     val parse_state = symbol + 2
     val flags = parse_state + 2
 
-    val children = 48
-    val visible_children_count = children + 8
+    val visible_children_count = 48
     val named_child_count = visible_children_count + 4
     val node_count = named_child_count + 4
     val repeat_depth = node_count + 4
     val dyn_prec = repeat_depth + 4
     val production_id = dyn_prec + 4
+
+
+
+    // offsets of TSLanguage
+    val alias_sequences = 128//64
+    val max_alias_sequence_length = 36
 
 
     fun readShort(addr: Ptr) : Int {
@@ -68,8 +74,7 @@ object SubtreeAccess {
         if (isInline(subtree)) {
             throw AssertionError()
         }
-        val children_ptr = unsafe.getAddress(subtree + children)
-        return unsafe.getAddress(children_ptr + i * 8)
+        return unsafe.getAddress(subtree + (i-childCount(subtree)) * 8)
     }
 
     fun extra(subtree: Ptr): Boolean {
@@ -143,11 +148,9 @@ object SubtreeAccess {
     }
 
     fun aliasSequence(lang: Ptr, productionId: Int): Ptr {
-        val alias_sequences_offset = 64
-        val max_alias_sequence_length_offset = alias_sequences_offset + 8
         if (productionId > 0) {
-            val maxAliasSequenceLength = readShort(lang + max_alias_sequence_length_offset)
-            val aliasSequencesPtr = unsafe.getAddress(lang + alias_sequences_offset)
+            val maxAliasSequenceLength = readShort(lang + max_alias_sequence_length)
+            val aliasSequencesPtr = unsafe.getAddress(lang + alias_sequences)
             return aliasSequencesPtr + 2 * productionId * maxAliasSequenceLength
         } else {
             return 0L

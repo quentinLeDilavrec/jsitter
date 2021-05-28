@@ -40,7 +40,7 @@
     (JNIEnv *env, jclass class, jlong language_ptr, jstring name) {
         jboolean copy;
         const char *chars = (*env)->GetStringUTFChars(env, name, &copy);
-        TSSymbol symbol = ts_language_symbol_for_name((TSLanguage *)language_ptr, chars);
+        TSSymbol symbol = ts_language_symbol_for_name((TSLanguage *)language_ptr, chars, strlen(chars), true);
         if (copy) {
             (*env)->ReleaseStringUTFChars(env, name, chars);
         }

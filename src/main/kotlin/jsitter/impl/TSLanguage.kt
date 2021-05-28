@@ -20,7 +20,7 @@ class TSLanguage<T : NodeType>(
           Error
       }
       else {
-        val name: String = JSitter.getSymbolName(languagePtr, symbol)
+        val name: String? = JSitter.getSymbolName(languagePtr, symbol)
         val isTerminal: Boolean = JSitter.isTerminal(languagePtr, symbol)
         val nodeType = registry.computeIfAbsent(name) { name ->
           if (isTerminal) {
