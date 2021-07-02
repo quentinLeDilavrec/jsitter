@@ -36,12 +36,12 @@ void perf() {
     TSParser *parser = ts_parser_new();
     ts_parser_set_language(parser, tree_sitter_go());
     struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
     TSTree *tree = ts_parser_parse_string(parser,
                                           NULL,
                                           (const char *)b,
                                           s);
-    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+    clock_gettime(CLOCK_MONOTONIC, &end);
     uint64_t delta_us = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_nsec - start.tv_nsec) / 1000;
     printf("took %llu\n", delta_us);
 }

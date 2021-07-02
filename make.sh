@@ -10,7 +10,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   BUILD_DIR=build/darwin
 fi
 
-cmake -B $BUILD_DIR
+cmake -B $BUILD_DIR -DCMAKE_TOOLCHAIN_FILE=linux.cmake
 
 cd $BUILD_DIR
 make
