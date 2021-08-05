@@ -16,7 +16,12 @@ public class JSitter {
     public static List retainedLibs = new ArrayList();
 
     public static long loadLang(String fnName, String libnameOrPath, ClassLoader loader) {
-        NativeLibrary instance = NativeLibrary.getInstance(libnameOrPath, loader);
+        NativeLibrary instance;
+        try {
+            instance = NativeLibrary.getInstance(libnameOrPath, loader);
+        } catch (Exception e) {
+            instance = NativeLibrary.getInstance("lib"+libnameOrPath, loader);
+        }
         retainedLibs.add(instance);
         Function function = instance.getFunction(fnName);
         return function.invokeLong(new Object[]{});
