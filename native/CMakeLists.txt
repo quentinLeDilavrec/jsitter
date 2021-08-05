@@ -16,4 +16,6 @@ add_library(tsgo SHARED grammars/tree-sitter-go/src/parser.c)
 
 add_library(tsjava SHARED grammars/tree-sitter-java/src/parser.c)
 
+#add_library(tsjavascript SHARED grammars/tree-sitter-javascript/src/parser.c  grammars/tree-sitter-javascript/src/scanner.c)
+
 target_link_libraries(jsitter tsgo tsjava)
