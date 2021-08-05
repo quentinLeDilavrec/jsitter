@@ -89,6 +89,18 @@ object SubtreeAccess {
         }
     }
 
+    fun named(subtree: Ptr): Boolean {
+        if (subtree == 0L) {
+            throw NullPointerException()
+        }
+        if (isInline(subtree)) {
+            return subtree.byte(0).and(4) == 4
+        } else {
+            val flags = unsafe.getByte(subtree + flags)
+            return flags.and(1.shl(1)) != 0.toByte()
+        }
+    }
+
     fun subtreeBytesSize(subtree: Ptr): Int {
         if (subtree == 0L) {
             throw NullPointerException()
