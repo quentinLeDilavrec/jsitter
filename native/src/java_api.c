@@ -197,3 +197,8 @@ JNIEXPORT void JNICALL Java_jsitter_interop_JSitter_parserReset
         return (jlong) parser;
     }
 
+    JNIEXPORT jstring JNICALL Java_jsitter_interop_JSitter_toSexp
+    (JNIEnv *env, jclass class, jlong language_ptr, jlong subtree_ptr) {
+        const char *name = ts_subtree_string(*(Subtree *)(&subtree_ptr), (TSLanguage *)language_ptr, 0);
+        return (*env)->NewStringUTF(env, name);
+    }

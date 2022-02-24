@@ -231,4 +231,8 @@ class TSZipper<T : NodeType>(val parent: TSZipper<*>?,
     JSitter.retainSubtree(this.node.subtreePtr)
     return node.copy(lifetime = TSSubtreeResource(this.node.subtreePtr))
   }
+  
+  override fun toSexp(): String {
+    return JSitter.toSexp(this.node.language.languagePtr, this.node.subtreePtr)
+  }
 }

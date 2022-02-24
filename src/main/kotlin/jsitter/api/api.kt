@@ -39,6 +39,9 @@ interface Zipper<out T : NodeType> {
     fun next(): Zipper<*>? = down() ?: skip()
 
     fun retainSubtree(): Node<T>
+
+    fun toSexp(): String
+    
     val node: Node<T>
 
     val byteOffset: Int

@@ -31,6 +31,7 @@ class Test1 {
         var zipper: Zipper<*>? = tree.root.zipper()
         val str = arrayListOf<String>()
         while (zipper != null) {
+            println(zipper.toSexp())
             val nodeTypeStr = zipper.node.type.toString()
             val aliasStr = zipper.alias?.toString()
             str.add(if (aliasStr != null) "$nodeTypeStr($aliasStr)" else nodeTypeStr)

@@ -66,10 +66,12 @@ public class JSitter {
 
     public static native long editSubtree(long subtree, int startByte, int oldEndByte, int newEndByte);
 
-    @Nullable
+    @Nullable 
     public static native int[] getChangedRanges(long editedTreePtr, long newTreePtr);
 
     public static native long newParser(long languagePtr, long cancellationFlagPtr);
 
     public static native void parserReset(long parserPtr);
+    
+    public static native String toSexp(long languagePtr, long treePtr);
 }

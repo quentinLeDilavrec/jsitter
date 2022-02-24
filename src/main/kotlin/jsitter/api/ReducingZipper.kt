@@ -75,6 +75,9 @@ class ReducingZipper<T : NodeType, Acc>(val parentOrInit: Any?,
   override fun retainSubtree(): Node<T> =
     z.retainSubtree()
 
+  override fun toSexp(): String =
+    z.toSexp()
+
   override val node: Node<T>
     get() = this.z.node
 
